@@ -1,4 +1,5 @@
 import React from 'react';
+import ochiLogoCircle from '../../assets/ochi_logo_circle_en.png';
 
 export default function Footer() {
   return (
@@ -6,9 +7,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="md:col-span-2 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="w-7 h-7 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-sm">五</span>
-              <span className="text-white font-bold text-lg">오치상사 (OCHI TRADING CO.)</span>
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 flex items-center justify-center">
+                <img src={ochiLogoCircle} alt="오치상사 OCHI LOGO" className="w-full h-full object-contain"/>
+              </div>
+              <span className="text-white font-bold text-lg tracking-tight">오치상사 (OCHI TRADING CO.)</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed max-w-md">
               산업용 정밀 자석/특수 고무재 공급, 엔터프라이즈 응용소프트웨어 개발 및 전문 SI 인력 파견/운영, 북미 및 국내 프리미엄 베이커리 디저트 원자재 수출입 솔루션을 제공하는 통합 전문 파트너입니다.
@@ -37,8 +40,11 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+          {/* <div>
+            대표자: 정병오 | 사업자등록번호: [145-22-02322] | 통신판매업신고: [제202X-서울강남-0000호]
+          </div> */}
           <div>
-            대표자: 오치상사 대표 | 사업자등록번호: [000-00-00000] | 통신판매업신고: [제202X-서울강남-0000호]
+            대표자 : 정병오 | 사업자등록번호 : 145-22-02322
           </div>
           <div>© {new Date().getFullYear()} OCHI TRADING CO. All Rights Reserved.</div>
         </div>

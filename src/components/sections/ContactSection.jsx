@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Send, Phone, Mail, MapPin, Building, ShieldCheck } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Building, ShieldCheck, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function ContactSection({ selectedDivision, onSelectDivision, onToast }) {
   const [formData, setFormData] = useState({
@@ -11,34 +12,74 @@ export default function ContactSection({ selectedDivision, onSelectDivision, onT
     detailType: '',
     content: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setFormData(prev => ({ ...prev, division: selectedDivision }));
   }, [selectedDivision]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.company || !formData.name || !formData.email || !formData.content) {
-      alert('필수 입력 항목(회사명, 담당자명, 연락처/이메일, 상담 내용)을 모두 작성해 주세요.');
+      alert('필수 입력 항목을 모두 작성해 주세요.');
       return;
     }
 
-    // TODO: 백엔드 API, EmailJS 또는 Firestore 연동 지점
-    console.log('문의 제출 데이터:', formData);
-    onToast(`[${formData.company}] 견적/상담 요청이 정상 접수되었습니다. 사업부 담당자가 신속히 회신드립니다.`);
-    setFormData({
-      division: selectedDivision,
-      company: '',
-      name: '',
-      email: '',
-      phone: '',
-      detailType: '',
-      content: ''
-    });
+    setIsSubmitting(true);
+
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error('EmailJS 환경 변수가 설정되지 않았습니다.');
+      alert('메일 서비스 설정이 완료되지 않았습니다. 관리자에게 문의해주세요.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    const divisionNames = {
+      IT_SI: 'IT·SI 솔루션',
+      MATERIAL: '정밀 산업소재(자석/고무)',
+      FNB: '글로벌 베이커리·F&B'
+    };
+
+    const templateParams = {
+      division: divisionNames[formData.division] || formData.division,
+      company: formData.company,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      detailType: formData.detailType || '미지정',
+      content: formData.content
+    };
+
+    try {
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+      
+      onToast(`[${formData.company}] 견적 요청이 성공적으로 전송되었습니다.`);
+      
+      setFormData({
+        division: selectedDivision,
+        company: '',
+        name: '',
+        email: '',
+        phone: '',
+        detailType: '',
+        content: ''
+      });
+    } catch (error) {
+      console.error('메일 전송 실패:', error);
+      alert('메일 발송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주시거나 전화로 문의해 주세요.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section id="contact" className="py-24 bg-slate-900 text-white relative">
+      {/* ... 기존 안내 및 상호 정보 코드 동일 ... */}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
@@ -174,7 +215,6 @@ export default function ContactSection({ selectedDivision, onSelectDivision, onT
                 </div>
               </div>
 
-              {/* 사업부별 맞춤 세부 항목 */}
               <div>
                 <label className="block text-xs text-slate-300 mb-1">세부 문의 항목</label>
                 {formData.division === 'IT_SI' && (
@@ -220,10 +260,20 @@ export default function ContactSection({ selectedDivision, onSelectDivision, onT
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
+                disabled={isSubmitting}
+                className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
               >
-                <Send className="w-4 h-4" />
-                상담 및 견적서 요청 접수
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    견적 요청 메일 전송 중...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    상담 및 견적서 요청 접수
+                  </>
+                )}
               </button>
             </form>
           </div>

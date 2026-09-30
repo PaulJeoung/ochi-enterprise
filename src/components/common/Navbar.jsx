@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import ochiLogo from '../../assets/ochi_logo_round_en.png';
 
 export default function Navbar({ onSelectDivision }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,14 +16,13 @@ export default function Navbar({ onSelectDivision }) {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-sky-400 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-blue-500/20">
-            五
+        <a href="#" className="flex items-center gap-3 group">
+          <div className="relative w-12 h-12 flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105">
+            <img src={ochiLogo} alt="오치상사 OCHI LOGO" className="w-full h-full object-contain drop-shadow-sm" />
           </div>
+
           <div>
-            <div className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-1.5">
-              오치상사 <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">OCHI</span>
-            </div>
+            <div className="text-xl font-black tracking-tight text-slate-900 leading-tight">오치상사</div>
             <div className="text-[10px] text-slate-500 tracking-wider font-semibold">IT · 소재부품 · 글로벌F&B</div>
           </div>
         </a>
