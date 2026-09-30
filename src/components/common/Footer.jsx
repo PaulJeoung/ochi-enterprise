@@ -46,7 +46,8 @@ export default function Footer() {
           <div>
             대표자 : 정병오 | 사업자등록번호 : 145-22-02322
           </div>
-          <div>© {new Date().getFullYear()} OCHI TRADING CO. All Rights Reserved.</div>
+          {/* <div>© {new Date().getFullYear()} OCHI TRADING CO. All Rights Reserved.</div> */}
+          <div>© 2009 OCHI TRADING CO. All Rights Reserved.</div>
         </div>
       </div>
     </footer>

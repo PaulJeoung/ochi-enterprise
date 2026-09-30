@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Send, Phone, Mail, MapPin, Building, ShieldCheck, Loader2 } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Building, ShieldCheck, Loader2, Youtube, Instagram, BookOpen, ExternalLink } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 export default function ContactSection({ selectedDivision, onSelectDivision, onToast }) {
@@ -98,28 +98,66 @@ export default function ContactSection({ selectedDivision, onSelectDivision, onT
                 <Building className="w-5 h-5 text-blue-400 mt-1 shrink-0" />
                 <div>
                   <div className="font-semibold text-slate-200">상호명: 오치상사 (OCHI TRADING CO.)</div>
-                  <div className="text-xs text-slate-400 mt-0.5">사업자등록번호: [000-00-00000]</div>
+                  <div className="text-xs text-slate-400 mt-0.5">사업자등록번호: 145-22-02322</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <MapPin className="w-5 h-5 text-blue-400 mt-1 shrink-0" />
                 <div>
                   <div className="font-semibold text-slate-200">사업장 소재지</div>
-                  <div className="text-xs text-slate-400 mt-0.5">서울특별시 강남구 테헤란로 (사업장 주소 기재)</div>
+                  <div className="text-xs text-slate-400 mt-0.5">경기도 용인시 기흥구 동백8로131번길 9 (우. 16999)</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <Phone className="w-5 h-5 text-blue-400 mt-1 shrink-0" />
                 <div>
-                  <div className="font-semibold text-slate-200">직통 유선 연락처</div>
-                  <div className="text-xs text-slate-400 mt-0.5">02-000-0000 / 010-0000-0000 (긴급 견적)</div>
+                  <div className="font-semibold text-slate-200">연락처</div>
+                  <div className="text-xs text-slate-400 mt-0.5">010-2910-5164</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <Mail className="w-5 h-5 text-blue-400 mt-1 shrink-0" />
                 <div>
                   <div className="font-semibold text-slate-200">공식 이메일 접수</div>
-                  <div className="text-xs text-slate-400 mt-0.5">contact@ochi-trading.com</div>
+                  <div className="text-xs text-slate-400 mt-0.5">kuni05@naver.com</div>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <div className="text-xs font-semibold text-slate-400 mb-2.5">공식 미디어 & 소통 채널</div>
+                <div className="grid grid-cols-3 gap-2.5">
+                  <a
+                    href="https://www.youtube.com/@ochi-trading-company"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-slate-800/90 hover:bg-red-600/20 border border-slate-700 hover:border-red-500/50 text-slate-300 hover:text-red-400 transition-all text-xs font-medium group"
+                  >
+                    <Youtube className="w-4 h-4 text-red-500 shrink-0" />
+                    <span>유튜브</span>
+                    <ExternalLink className="w-2.5 h-2.5 opacity-40 group-hover:opacity-100 transition-opacity" />
+                  </a>
+
+                  <a
+                    href="https://www.instagram.com/reel/DYha44dO0av/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-slate-800/90 hover:bg-pink-600/20 border border-slate-700 hover:border-pink-500/50 text-slate-300 hover:text-pink-400 transition-all text-xs font-medium group"
+                  >
+                    <Instagram className="w-4 h-4 text-pink-500 shrink-0" />
+                    <span>인스타</span>
+                    <ExternalLink className="w-2.5 h-2.5 opacity-40 group-hover:opacity-100 transition-opacity" />
+                  </a>
+
+                  <a
+                    href="https://blog.naver.com/kuni05"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-slate-800/90 hover:bg-emerald-600/20 border border-slate-700 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 transition-all text-xs font-medium group"
+                  >
+                    <BookOpen className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>블로그</span>
+                    <ExternalLink className="w-2.5 h-2.5 opacity-40 group-hover:opacity-100 transition-opacity" />
+                  </a>
                 </div>
               </div>
             </div>
