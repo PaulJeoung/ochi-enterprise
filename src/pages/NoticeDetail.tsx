@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowRight, List } from 'lucide-react';
+import { ArrowRight, ExternalLink, List } from 'lucide-react';
 import PageHeader from '../components/ui/PageHeader';
 import SmartLink from '../components/ui/SmartLink';
 import { NOTICE_CATEGORY_LABEL } from '../data/noticeCategories';
@@ -7,6 +7,7 @@ import { useNotices } from '../features/notice/useNotices';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useLang } from '../i18n/LanguageContext';
 import { formatDate } from '../lib/date';
+import { hostOf, isInternalUrl } from '../lib/link';
 
 export default function NoticeDetail() {
   const { t } = useLang();
@@ -48,8 +49,12 @@ export default function NoticeDetail() {
                   href={notice.link.url}
                   className="inline-flex items-center gap-2 rounded bg-ochi-amber-500 px-5 py-2.5 text-sm font-semibold text-ochi-amber-900 hover:bg-ochi-amber-400"
                 >
-                  {notice.link.label} <ArrowRight className="h-4 w-4" />
+                  {notice.link.label}
+                  {isInternalUrl(notice.link.url) ? <ArrowRight className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
                 </SmartLink>
+                {!isInternalUrl(notice.link.url) && (
+                  <p className="mt-2 text-xs text-slate-400">{t({ ko: '새 창에서 열립니다', en: 'Opens in a new tab' })}{hostOf(notice.link.url) && ` · ${hostOf(notice.link.url)}`}</p>
+                )}
               </div>
             )}
           </article>

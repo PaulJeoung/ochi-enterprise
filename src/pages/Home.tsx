@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronRight, Mail, Phone } from 'lucide-react';
+import { ArrowRight, ChevronRight, Mail, MessageCircle, Phone } from 'lucide-react';
 import emblem from '../assets/ochi_emblem.png';
 import Photo from '../components/ui/Photo';
 import { DIVISIONS } from '../data/business';
@@ -25,7 +25,7 @@ function ColumnTitle({ title, to }: { title: string; to: string }) {
 
 export default function Home() {
   const { t } = useLang();
-  const { contact } = useSite();
+  const { contact, channels } = useSite();
   const { status, notices } = useNotices();
   const recent = boardNotices(notices).slice(0, 4);
 
@@ -65,6 +65,12 @@ export default function Home() {
                   <div className="flex items-center gap-2">
                     <Phone className="h-3.5 w-3.5 text-ochi-amber-400" aria-hidden="true" /> {contact.phone}
                   </div>
+                )}
+                {channels.kakao && (
+                  <a href={channels.kakao} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-ochi-amber-400">
+                    <MessageCircle className="h-3.5 w-3.5 text-ochi-amber-400" aria-hidden="true" />
+                    {t({ ko: '카카오톡 오픈채팅 상담', en: 'Chat on KakaoTalk' })}
+                  </a>
                 )}
                 {contact.email && (
                   <div className="flex items-center gap-2">

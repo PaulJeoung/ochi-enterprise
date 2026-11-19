@@ -5,7 +5,7 @@ import ContactForm from '../features/contact/ContactForm';
 import { useSite } from '../features/site/SiteContext';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useLang } from '../i18n/LanguageContext';
-import { telHref } from '../lib/link';
+import { naverMapUrl, telHref } from '../lib/link';
 
 export default function Contact() {
   const { t, lang } = useLang();
@@ -20,11 +20,11 @@ export default function Contact() {
   const hours = lang === 'ko' ? contact.hoursKo : contact.hoursEn;
   const address = lang === 'ko' ? contact.addressKo : contact.addressEn;
   const infos = [
+    channels.kakao && { icon: MessageCircle, label: t({ ko: '카카오톡 상담', en: 'KakaoTalk' }), value: t({ ko: '오픈채팅으로 문의하기', en: 'Chat with us on KakaoTalk' }), href: channels.kakao },
     contact.phone && { icon: Phone, label: t({ ko: '전화', en: 'Phone' }), value: contact.phone, href: telHref(contact.phone) },
     contact.email && { icon: Mail, label: t({ ko: '이메일', en: 'Email' }), value: contact.email, href: `mailto:${contact.email}` },
-    channels.kakao && { icon: MessageCircle, label: t({ ko: '카카오톡', en: 'KakaoTalk' }), value: t({ ko: '채널 상담하기', en: 'Chat with us' }), href: channels.kakao },
     hours && { icon: Clock, label: t({ ko: '상담 시간', en: 'Hours' }), value: hours, href: '' },
-    address && { icon: MapPin, label: t({ ko: '소재지', en: 'Address' }), value: address, href: '' },
+    address && { icon: MapPin, label: t({ ko: '소재지', en: 'Address' }), value: address, href: naverMapUrl(contact.addressKo || address) },
   ].filter(Boolean) as { icon: typeof Phone; label: string; value: string; href: string }[];
 
   return (

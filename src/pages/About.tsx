@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CalendarCheck, MapPin } from 'lucide-react';
+import { ArrowRight, CalendarCheck, ExternalLink, MapPin } from 'lucide-react';
 import emblem from '../assets/ochi_emblem.png';
 import logoKr from '../assets/ochi_logo_kr.png';
 import PageHeader from '../components/ui/PageHeader';
@@ -8,6 +8,7 @@ import { DIVISIONS } from '../data/business';
 import { useSite } from '../features/site/SiteContext';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useLang } from '../i18n/LanguageContext';
+import { googleMapUrl, naverMapUrl } from '../lib/link';
 
 export default function About() {
   const { t, lang } = useLang();
@@ -19,6 +20,8 @@ export default function About() {
   );
 
   const address = lang === 'ko' ? contact.addressKo : contact.addressEn;
+  /** 지도 검색은 국내 지도에서 정확한 한글 주소 우선 */
+  const mapQuery = contact.addressKo || contact.addressEn;
   const hours = lang === 'ko' ? contact.hoursKo : contact.hoursEn;
   const overview = [
     { label: { ko: '상호', en: 'Company' }, value: `${company.nameKo} (${company.nameEn})` },
@@ -99,8 +102,39 @@ export default function About() {
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-ochi-amber-500" aria-hidden="true" />
               <div>
                 <div className="font-semibold text-ochi-navy-800">{t({ ko: '소재지', en: 'Address' })}</div>
-                <div className="mt-1 text-sm text-slate-600">{address || '-'}</div>
+                {mapQuery ? (
+                  <a
+                    href={naverMapUrl(mapQuery)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 block text-sm text-slate-600 underline-offset-4 hover:text-ochi-navy-500 hover:underline"
+                  >
+                    {address}
+                  </a>
+                ) : (
+                  <div className="mt-1 text-sm text-slate-600">-</div>
+                )}
                 {hours && <div className="mt-1 text-xs text-slate-500">{hours}</div>}
+                {mapQuery && (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <a
+                      href={naverMapUrl(mapQuery)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 rounded bg-[#03C75A] px-3 py-1.5 text-xs font-semibold text-white hover:opacity-90"
+                    >
+                      {t({ ko: '네이버 지도', en: 'Naver Map' })} <ExternalLink className="h-3 w-3" />
+                    </a>
+                    <a
+                      href={googleMapUrl(mapQuery)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 rounded border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                    >
+                      {t({ ko: '구글 지도', en: 'Google Maps' })} <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex items-start gap-3 rounded border border-slate-200 p-5">
@@ -109,8 +143,8 @@ export default function About() {
                 <div className="font-semibold text-ochi-navy-800">{t({ ko: '방문 상담은 사전 예약제', en: 'Visits by appointment' })}</div>
                 <p className="mt-1 text-sm text-slate-600">
                   {t({
-                    ko: '방문 상담을 원하시면 먼저 연락 주세요. 상세 위치는 예약 시 안내해 드립니다.',
-                    en: 'Please contact us before visiting. We will share the exact location when booking.',
+                    ko: '방문 상담을 원하시면 일정 조율을 위해 먼저 연락 주세요.',
+                    en: 'Please contact us before visiting so we can arrange a time.',
                   })}
                 </p>
                 <Link to="/contact" className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-ochi-navy-600 hover:text-ochi-navy-500">
