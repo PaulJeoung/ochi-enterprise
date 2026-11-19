@@ -1,0 +1,28 @@
+{
+  "company": {
+    "nameKo": "오치상사",
+    "nameEn": "OCHI GLOBAL",
+    "ceo": "정병오",
+    "established": ""
+  },
+  "registration": {
+    "businessNo": "145-22-02322",
+    "mailOrderNo": "",
+    "exporterNo": ""
+  },
+  "contact": {
+    "phone": "010-2910-5164",
+    "email": "kuni05@naver.com",
+    "hoursKo": "평일 09:00 ~ 18:00",
+    "hoursEn": "Weekdays 09:00 - 18:00 (KST)",
+    "addressKo": "경기도 용인시 기흥구 동백8로 131번길 9",
+    "addressEn": "Giheung-gu, Yongin-si, Gyeonggi-do, Korea"
+  },
+  "channels": {
+    "kakao": "",
+    "youtube": "https://www.youtube.com/@ochi-trading-company",
+    "instagram": "https://www.instagram.com/reel/DYha44dO0av/",
+    "blog": "https://blog.naver.com/kuni05",
+    "playStore": "https://play.google.com/store/apps/details?id=com.gamdori.fransooa"
+  }
+}

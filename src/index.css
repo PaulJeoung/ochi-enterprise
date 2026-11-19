@@ -5,5 +5,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 7rem; /* sticky 헤더 높이만큼 앵커 위치 보정 */
   }
 }

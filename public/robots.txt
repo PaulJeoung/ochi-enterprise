@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 도메인이 정해지면 아래 주석을 풀고 실제 주소로 바꿔 주세요.
+# Sitemap: https://YOUR-DOMAIN/sitemap.xml
